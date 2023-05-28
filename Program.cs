@@ -6,20 +6,17 @@
         {
             using(MyDbContext ctx =  new MyDbContext())
             {
-                ctx.Database.EnsureCreated();
-                Article a1 = new Article();
-                a1.Title = "Kang is the most handsome programmer";
-                a1.Content = "As the media said bla bla bla";
-                a1.Author = "Kang";
-                a1.Description = "It is truely yes";
+                User user1 = new User { Name="Kang" };
 
-                Comment c1 = new Comment { Message = "awesome",Name="guagua" };
-                Comment c2 = new Comment { Message = "Agree", Name = "haha" };
-
-                a1.Comments.Add(c1);
-                a1.Comments.Add(c2);
-
-                ctx.Articles.Add(a1);
+                Leave leave1 = new Leave();
+                leave1.Requester = user1;
+                leave1.Remarks = "I'm sick, I need to go to hospital";
+                leave1.Status = 0;
+                leave1.From = DateTime.Now;
+                leave1.To = new DateTime(2023, 9, 11);
+                
+                ctx.Users.Add( user1 );
+                ctx.Leaves.Add( leave1 );
                 await ctx.SaveChangesAsync();
             }
         }
